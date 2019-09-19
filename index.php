@@ -1,20 +1,25 @@
 <?php
 declare(strict_types=1);
 ini_set('display_errors', '1');
-require_once './core/router.php';
+require_once './core/Router.php';
+require_once './core/Controller.php';
+
 use HH\Router;
 
 
         
 $router = Router::fromGlobals();
-$router->add('/test/synserver/index.php', function () {
-    echo 'Hello from Litero!';
+$router->add('/index.php', function () {
+    echo 'Service SYNOPTC ready!';
 });
 
+$router->add('/proctype', function () {
+   
+});
 
 $router->add([
-    '/first'       => 'ExampleController@actMin',
-    '/second/:any'  => 'core\controller@actMin',
+   $router->getRequestPath().'/first'       => 'Controller@actMin',
+   $router->getRequestPath().'/second/:any'  => 'Controller@actMin',
 ]);
 
 

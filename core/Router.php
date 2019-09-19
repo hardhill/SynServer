@@ -7,7 +7,8 @@
  */
 
 namespace HH;
-
+use HH\Controller;
+require './Controller.php';
 /**
  * Description of Route
  *
@@ -17,6 +18,7 @@ class Router {
 
     protected $routes = [];
     protected $requestUri;
+    protected $requestPath;
     protected $requestMethod;
     protected $requestHandler;
     protected $params = [];
@@ -29,6 +31,10 @@ class Router {
     public function __construct($uri, $method = 'GET') {
         $this->requestUri = $uri;
         $this->requestMethod = $method;
+        $uri = $this->getRequestUri();
+        $pos = strrpos($uri, "/");
+        $this->requestPath = substr($uri,0,$pos);
+        
     }
 
     /**
@@ -53,7 +59,10 @@ class Router {
     public function getRequestUri() {
         return $this->requestUri; // ?: '/';
     }
-
+    
+    public function getRequestPath(){
+        return $this->requestPath;
+    }
     /**
      * Request method.
      * @return string
@@ -93,8 +102,12 @@ class Router {
      * @param mixed $handler Any callable or string with controller classname and action method like "ControllerClass@actionMethod"
      */
     public function add($route, $handler = null) {
+        
         if ($handler !== null && !is_array($route)) {
+            $route = $this->requestPath.$route;
             $route = array($route => $handler);
+        }else{
+            var_dump($route); //TODO вернуть первый элемент ассоциативного массива
         }
         $this->routes = array_merge($this->routes, $route);
         return $this;
@@ -106,8 +119,7 @@ class Router {
      */
     public function isFound() {
         $uri = $this->getRequestUri();
-        var_dump($uri);
-        print_r($this->routes);
+        
         // if URI equals to route
         if (isset($this->routes[$uri])) {
             $this->requestHandler = $this->routes[$uri];
