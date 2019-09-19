@@ -40,10 +40,22 @@ function GetNLastYears(int $n): array {
 function GetNLastMonth(int $n): array {
     $arr = array();
     $now = new DateTime();
-    for($x = $n; $x>=0; $x--) {
-        $now = $now->modify('-'.$x.'month');
-        $arr[] = $now->format('Y').'-'.$now->format('m').'-'.$now->format('d');
+    $now->modify('-'.$n.' month');
+    for($x = 0; $x<$n+1; $x++) {
+        $now->modify('+1 month');
+        $arr[] = $now->format('Y').'-'.$now->format('m').'-01';
     }
 
+    return $arr;
+}
+
+function GetNLastDays(int $n){
+    $arr = array();
+    $now = new DateTime();
+    $now->modify('-'.$n.' day');
+    for($x = 0; $x<$n+1; $x++) {
+        $now->modify('+1 day');
+        $arr[] = $now->format('Y').'-'.$now->format('m').'-'.$now->format('d');
+    }
     return $arr;
 }

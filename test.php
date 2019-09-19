@@ -8,4 +8,7 @@
 require './functions.php';
 
 print_r(GetNLastYears(5));
+echo '<br>';
 print_r(GetNLastMonth(12));
+echo '<br>';
+print_r(GetNLastDays(30));
