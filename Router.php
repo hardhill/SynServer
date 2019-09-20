@@ -1,19 +1,33 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Extra light router and dispatcher for small web applications.
+ * Small footprint, no overhead.
+ *
+ * @link      https://github.com/bit55/litero
+ * @copyright Copyright (c) 2017 Eugene Dementyev.
+ * @license   https://opensource.org/licenses/BSD-3-Clause
+ *
+ * Routes may contents exact or  wildcard rules.
+ *
+ * Wildcards example:
+ * `/page/:seg` - any characters in one segment like `/page/qwerty` or `/page/123`;
+ * `/page/:num` - digits only like `/page/123`;
+ * `/page/:any` - any characters like `/page/qwerty` or `/page/qwerty/123`;
+ *
+ * Route handler may be any callable (function name, closure) or string with controller class name and action method.
+ * Router instantiate controller and execute action method automatically.
+ * Wildcard parameters will be passed as function params in handler.
+ * Note if you using Composer, add your controller classes to autoloading.
  */
 
-namespace HH;
-use HH\Controller;
-require './Controller.php';
+
 /**
  * Description of Route
  *
  * @author 003BeletskyVA
  */
+require './Controller.php';
+
 class Router {
 
     protected $routes = [];
@@ -101,14 +115,14 @@ class Router {
      * @param string|array $route A URI route string or array
      * @param mixed $handler Any callable or string with controller classname and action method like "ControllerClass@actionMethod"
      */
+    
     public function add($route, $handler = null) {
         
         if ($handler !== null && !is_array($route)) {
             $route = $this->requestPath.$route;
             $route = array($route => $handler);
-        }else{
-            var_dump($route); //TODO вернуть первый элемент ассоциативного массива
         }
+        
         $this->routes = array_merge($this->routes, $route);
         return $this;
     }

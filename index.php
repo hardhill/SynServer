@@ -1,25 +1,24 @@
 <?php
 declare(strict_types=1);
 ini_set('display_errors', '1');
-require_once './core/Router.php';
-require_once './core/Controller.php';
+require_once './Router.php';
 
-use HH\Router;
+
+
+
 
 
         
 $router = Router::fromGlobals();
-$router->add('/index.php', function () {
-    echo 'Service SYNOPTC ready!';
-});
 
-$router->add('/proctype', function () {
-   
-});
+//$router->add('/index.php', function () {
+//    echo 'Service SYNOPTIC ready!';
+//});
+
 
 $router->add([
    $router->getRequestPath().'/first'       => 'Controller@actMin',
-   $router->getRequestPath().'/second/:any'  => 'Controller@actMin',
+   $router->getRequestPath().'/second/:any'  => 'Controller@actMax',
 ]);
 
 
