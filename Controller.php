@@ -16,7 +16,8 @@ class Controller {
     public static function actMin(){
         echo 'Hello Waclaw!';
     }
-    public static function actMax($var){
-        echo 'VARS-'.$var;
+    public static function actMax(){
+        echo "VARS-";
+        //var_dump();
     }
 }

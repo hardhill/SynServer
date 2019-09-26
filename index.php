@@ -13,12 +13,13 @@ $router = Router::fromGlobals();
 
 //$router->add('/index.php', function () {
 //    echo 'Service SYNOPTIC ready!';
+//    
 //});
 
 
 $router->add([
    $router->getRequestPath().'/first'       => 'Controller@actMin',
-   $router->getRequestPath().'/second/:any'  => 'Controller@actMax',
+   $router->getRequestPath().'/second'  => 'Controller@actMax',
 ]);
 
 

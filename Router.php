@@ -151,6 +151,7 @@ class Router {
             if (preg_match('#^' . $route . '$#', $uri, $matches)) {
                 $this->requestHandler = $handler;
                 $this->params = array_slice($matches, 1);
+                
                 return true;
             }
         }
